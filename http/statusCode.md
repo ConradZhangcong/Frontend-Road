@@ -1,0 +1,33 @@
+# HTTP 状态码(HTTP Status Code)
+
+## 对于前端来说一些常见的状态码
+
+- `200 OK` 请求成功
+- `206 Partial Content` 客户端请求一部分资源
+- `304 Not Modified` 资源已找到,但未符合条件
+
+> 附带条件的请求是指采用 GET 方法的请求报文中包含 `If-Match`，`If-Modified-Since`，`If-None-Match`，`If-Range`，`If-Unmodified-Since` 中任一首部
+
+- `400 Bad Request` 请求报文中存在语法错误
+- `401 Unauthorized` 未授权
+- `403 Forbidden` 拒绝访问
+- `404 Not Found` 请求的页面不存在
+- `405 Method Not Allowed` 请求的方法不允许
+- `414 URI Too Long` 请求路径过长
+- `500 Internal Server Error` 服务器内部错误
+- `502 Bad Gateway` 网关错误
+- `504 Gateway Timeout` 网关超时
+
+## HTTP 状态码分类
+
+| 分类 | 描述                                           |
+| :--- | ---------------------------------------------- |
+| 1xx  | 信息，服务器收到请求，需要请求者继续执行操作   |
+| 2xx  | 成功，操作被成功接收并处理                     |
+| 3xx  | 重定向，需要进一步的操作以完成请求             |
+| 4xx  | 客户端错误，请求包含语法错误或无法完成请求     |
+| 5xx  | 服务器错误，服务器在处理请求的过程中发生了错误 |
+
+## 详细的状态码
+
+详细的 HTTP 状态码参考: [MDN-HTTP 相应代码](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
