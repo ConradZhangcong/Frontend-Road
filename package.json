@@ -1,0 +1,14 @@
+{
+  "name": "frontend-road",
+  "version": "0.0.0",
+  "decription": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "Conradzc <zhangcong.job@outlook.com> (conradzc.com)",
+  "license": "MIT",
+  "description": "Keep Learning",
+  "scripts": {
+    "start": "npm run test",
+    "test": "node test"
+  }
+}

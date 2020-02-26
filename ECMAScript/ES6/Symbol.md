@@ -2,7 +2,7 @@
 
 ## 概述
 
-ES6 引入了一种新的` 原始数据类型``Symbol `,表示独一无二的值.是 js 的第七种数据类型,前六种是:`undefined`,`null`,布尔值(Boolean),字符串(String),数值(Number),对象(Object).
+ES6 引入了一种新的`原始数据类型` `Symbol`,表示独一无二的值.是 js 的第七种数据类型,前六种是:`undefined`,`null`,布尔值(Boolean),字符串(String),数值(Number),对象(Object).
 
 Symbol 值通过`Symbol函数`生成.对象的属性名现在可以有两种类型,一种是原来的字符串,一种是新增的 Symbol 类型.凡是属性名属于 Symbol 类型,就都是独一无二的,可以保证不会与其他属性名产生冲突.
 
