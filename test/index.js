@@ -1,38 +1,24 @@
-const Car = {
-  name: 'BMW',
-  price: 100000,
-  set discount (x) {
-    this.d = x
-  },
-  get discount () {
-    return this.d
+// 没有 unscopables 时
+class MyClass {
+  foo () { return 1 }
+}
+
+var foo = function () { return 2 }
+
+with (MyClass.prototype) {
+  foo() // 1
+}
+
+// 有 unscopables 时
+class MyClass {
+  foo () { return 1 }
+  get [Symbol.unscopables] () {
+    return { foo: true }
   }
 }
 
-console.log(Object.getOwnPropertyDescriptors(Car))
-return
+var foo = function () { return 2 }
 
-console.log(Object.getOwnPropertyDescriptor(Car, 'discount'))
-
-// {
-//   get: [Function: get discount],
-//   set: [Function: set discount],
-//   enumerable: true,
-//   configurable: true
-// }
-
-const ElectricCar = Object.assign({}, Car)
-
-console.log(Object.getOwnPropertyDescriptor(ElectricCar, 'discount'))
-
-// {
-//   value: undefined,
-//   writable: true,
-//   enumerable: true,
-//   configurable: true
-// }
-
-const ElectricCar2 = Object.defineProperties({}, Object.getOwnPropertyDescriptors(Car))
-
-console.log(ElectricCar) // { name: 'BMW', price: 100000, discount: undefined }
-console.log(ElectricCar2) // { name: 'BMW', price: 100000, discount: undefined }
+with (MyClass.prototype) {
+  foo() // 2
+}

@@ -8,12 +8,20 @@
 
 设计模式
 
+## [ECMAScript](./ECMAScript)
+
 ## [helper](./helper)
 
 开发中会用到的一些小工具
 
 ## [html](./html)
 
+## [http](./http)
+
 ## [others](./others)
+
+- ### [git](./others/git)
+
+- ### [markdown](./others/markdown)
 
 ## [vue](./vue)

@@ -9,26 +9,7 @@
 </head>
 
 <body>
-  <script>
-    async function sum(arr) {
-      for await (let i of arr) {
-        calculate(i)
-      }
-      console.log('finished')
-    }
-
-    function calculate(num) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          console.log(num * 2)
-          resolve(num * 2)
-        }, 200)
-      })
-    }
-
-    sum([1, 2, 3, 4])
-
-  </script>
+  <script></script>
 </body>
 
 </html>
