@@ -1,8 +1,8 @@
 # emoji
 
-`git commit`编写提交信息时,会用到一些小图标
+`git commit`编写提交信息时,会用到一些小图标.(在vscode中可以下载插件`Markdown Emoji`预览)
 
-例如: `git commit -m ":tada: init"`
+例如: `git commit -m ":tada: init"` --> :tada: init
 
 ## emoji 列表
 

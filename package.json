@@ -9,6 +9,7 @@
   "description": "Keep Learning",
   "scripts": {
     "start": "npm run test",
-    "test": "node test"
+    "test": "node test",
+    "server": "node ./temp/server.js"
   }
 }
