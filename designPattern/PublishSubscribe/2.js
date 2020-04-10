@@ -1,4 +1,4 @@
-module.exports = {
+let event = {
   // 存放回调函数
   list: {},
   // 订阅事件
@@ -34,3 +34,5 @@ module.exports = {
     }
   }
 }
+
+module.exports = event

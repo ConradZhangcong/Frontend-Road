@@ -4,7 +4,7 @@
 
 ## Observer - 观察者模式
 
-## PublishSubscribe - 发布订阅模式(未完成)
+## PublishSubscribe - 发布订阅模式
 
 参考: [掘金-发布订阅模式，在工作中它的能量超乎你的想象](https://juejin.im/post/5b125ad3e51d450688133f22)
 

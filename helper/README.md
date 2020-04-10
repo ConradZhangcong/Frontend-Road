@@ -2,9 +2,21 @@
 
 以下工具按字母顺序排列
 
+## debounce&throttle
+
+防抖与节流
+
 ## deepClone
 
 js 克隆(深拷贝)
+
+## fullpage
+
+全屏滚动
+
+## qrcord
+
+二维码生成与识别
 
 ## stringUnicode
 
