@@ -1,5 +1,12 @@
 # vue
 
+```html
+<!-- 开发环境版本 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 生产环境版本 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+```
+
 ## vue 中 key 的作用
 
 参考:

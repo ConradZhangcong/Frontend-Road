@@ -2,26 +2,4 @@
 
 > Keep Learning
 
-逆流而上,保持学习.
-
-## [designPattern](./designPattern)
-
-设计模式
-
-## [ECMAScript](./ECMAScript)
-
-## [helper](./helper)
-
-开发中会用到的一些小工具
-
-## [html](./html)
-
-## [http](./http)
-
-## [others](./others)
-
-- ### [git](./others/git)
-
-- ### [markdown](./others/markdown)
-
-## [vue](./vue)
+此项目是为了整理我在前端学习过程中遇到问题,对自己的知识体系进行完善.

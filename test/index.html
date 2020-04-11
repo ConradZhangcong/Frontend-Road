@@ -5,5 +5,146 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div id="app">
+      <span>{{message}}</span>
+      <child />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var child = {
+        data() {
+          return {
+            msg: 'child',
+          }
+        },
+        template: '<p>{{msg}}</p>',
+        beforeCreate() {
+          console.log('---Child: beforeCreate:---')
+          debugger;
+        },
+        created() {
+          console.log('---Child: created:---')
+          debugger;
+        },
+        beforeMount() {
+          console.log('---Child: beforeMount:---')
+          debugger;
+        },
+        mounted() {
+          console.log('---Child: mounted:---')
+          throw Error('test')
+          debugger;
+        },
+        beforeUpdate() {
+          console.log('---Child: beforeUpdate:---')
+          debugger;
+        },
+        updated() {
+          console.log('---Child: updated:---')
+          debugger;
+        },
+        beforeDestroy() {
+          console.log('---Child: beforeDestory:---')
+          debugger;
+        },
+        destroyed() {
+          console.log('---Child: destoryed:---')
+          debugger;
+        },
+        errorCaptured(err, vm, info) {
+          console.log('---Child: errorCaptured:---')
+          console.log(err, vm, info)
+        },
+      }
+
+      let vm = new Vue({
+        el: '#app',
+        data() {
+          return {
+            message: 'hello wrold',
+          }
+        },
+        beforeCreate() {
+          console.log('---Parent: beforeCreate:---')
+          console.log('el: ' + this.$el) // undefined
+          console.log('data: ' + this.$data) // undefined
+          console.log('message: ' + this.message) // undefined
+          debugger;
+        },
+        created() {
+          console.log('---Parent: created:---')
+          console.log('el: ' + this.$el) // undefined
+          console.log('data: ' + this.$data) // [object Object]
+          console.log(this.$data)
+          console.log('message: ' + this.message) // hello world
+          debugger;
+        },
+        beforeMount() {
+          console.log('---Parent: beforeMount:---')
+          console.log('el: ' + this.$el) // [object HTMLDivElement]
+          console.log(this.$el) // <span>{{message}}</span>
+          console.log('data: ' + this.$data) // [object Object]
+          console.log(this.$data)
+          console.log('message: ' + this.message) // hello world
+          debugger;
+        },
+        mounted() {
+          console.log('---Parent: mounted:---')
+          console.log('el: ' + this.$el) // [object HTMLDivElement]
+          console.log(this.$el) // <span>hello world</span>
+          console.log('data: ' + this.$data) // [object Object]
+          console.log(this.$data)
+          console.log('message: ' + this.message) // hello world
+          debugger;
+        },
+        beforeUpdate() {
+          console.log('---Parent: beforeUpdate:---')
+          console.log('el: ' + this.$el)
+          console.log(this.$el)
+          console.log('data: ' + this.$data)
+          console.log(this.$data)
+          console.log('message: ' + this.message)
+          // this.$destroy()
+          debugger;
+        },
+        updated() {
+          console.log('---Parent: updated:---')
+          console.log('el: ' + this.$el)
+          console.log(this.$el)
+          console.log('data: ' + this.$data)
+          console.log(this.$data)
+          console.log('message: ' + this.message)
+          debugger;
+        },
+        beforeDestroy() {
+          this.$data.message = 'hello'
+          console.log('---Parent: beforeDestory:---')
+          console.log('el: ' + this.$el)
+          console.log(this.$el)
+          console.log('data: ' + this.$data)
+          console.log(this.$data)
+          console.log('message: ' + this.message)
+          debugger;
+        },
+        destroyed() {
+          console.log('---Parent: destoryed:---')
+          console.log('el: ' + this.$el)
+          console.log(this.$el)
+          console.log('data: ' + this.$data)
+          console.log(this.$data)
+          console.log('message: ' + this.message)
+          debugger;
+        },
+        errorCaptured(err, vm, info) {
+          console.log('---Parent: errorCaptured:---')
+          console.log(err, vm, info)
+          return false
+        },
+        components: {
+          child: child,
+        },
+      })
+    </script>
+  </body>
 </html>
