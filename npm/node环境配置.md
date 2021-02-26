@@ -1,4 +1,4 @@
-# node-env
+# node环境配置
 
 npm 安装全局模块以及缓存 cache 的文件存储在系统盘(`C:\Users\用户名\AppData\Roaming\npm`)路径中,占用系统盘空间.因此我希望将缓存文件以及全局模块文件存在其他盘中.
 
@@ -62,7 +62,7 @@ npm config set init-module ~\.npm-init.js
 ```
 
 ```javascript
-// .npm-init.js
+// ./.npm-init.js
 
 module.exports = {
   name: prompt('package name', basename || package.name),
