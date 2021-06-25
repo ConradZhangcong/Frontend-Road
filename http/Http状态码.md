@@ -17,8 +17,10 @@
 - `404 Not Found` 资源没找到,没有在服务器上找到相应资源
 - `405 Method Not Allowed` 请求的方法不允许
 - `414 URI Too Long` 请求路径过长
+- `416 Range Not Satisfiable`
 - `500 Internal Server Error` 服务器内部错误
 - `502 Bad Gateway` 网关错误
+- `503 Service Unavailable` 服务器没找到，常见原因是服务器因维护或重载而停机
 - `504 Gateway Timeout` 网关超时
 
 ## HTTP 状态码分类

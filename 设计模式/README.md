@@ -2,9 +2,9 @@
 
 设计模式
 
-## Observer - 观察者模式
+## 观察者模式 - Observer
 
-## PublishSubscribe - 发布订阅模式
+## 发布订阅模式 - PublishSubscribe
 
 参考: [掘金-发布订阅模式，在工作中它的能量超乎你的想象](https://juejin.im/post/5b125ad3e51d450688133f22)
 
