@@ -1,4 +1,4 @@
-# 深拷贝
+# 深拷贝的实现
 
 上一篇文章介绍到浅拷贝以及深拷贝的区别, 以及一些常见的拷贝的方法.
 
@@ -204,7 +204,7 @@ function cloneDeep(source) {
 对于`Boolean` `Number` `String` `Date` `Error`这几种类型我们都可以直接使用构造函数和原始数据类型来创建一个新对象:
 
 ```js
-function cloneOtherType(source, type) {
+function cloneUnIterableTypes(source, type) {
   const Ctor = source.constructor;
   switch (type) {
     case stringTag:
@@ -212,7 +212,7 @@ function cloneOtherType(source, type) {
     case booleanTag:
     case dateTag:
     case errorTag:
-      return new Ctor(source);
+      return source;
     case bigintTag:
       return BigInt(source);
     case symbolTag:
@@ -311,7 +311,7 @@ function cloneDeep(source, map = new WeakMap()) {
   if (iterableTags.includes(type)) {
     target = getConstructor(source);
   } else {
-    return cloneOtherType(source, type);
+    return cloneUnIterableTypes(source, type);
   }
 
   if (map.get(source)) {
@@ -367,11 +367,129 @@ console.log(cloneDeep(createData, 10000));
 // RangeError: Maximum call stack size exceeded
 ```
 
-破解递归爆栈的方法有两种, 一种是消除尾递归, 另一种是不使用递归, 使用循环.
+破解递归爆栈的方法有两种, 一种是消除尾递归, 另一种是不使用递归, 使用循环. 在这边我们采用循环的方式来解决递归爆栈的问题, 将递归改成循环在思路上是有些绕的. 我们可以将这个深拷贝的数据结构看成一棵树, 用循环遍历一棵树需要借助一个栈, 栈里面存储下一个需要拷贝的节点, 当栈为空时拷贝就结束了.
 
-> 什么是消除尾递归, 为什么递归会爆栈而循环不会
+首先我们封装一个对四种可继续遍历的数据结构循环的一个公用方法, 方便处理循环.
 
-## 完整代码
+```js
+function forEach(array, iteratee) {
+  const type = getType(array);
+  if (type === objectTag) {
+    const list = Object.keys(array);
+    let index = -1;
+    const length = list.length;
+    while (++index < length) {
+      iteratee(array[list[index]], list[index]);
+    }
+    return list;
+  } else if (type === arrayTag) {
+    let index = -1;
+    const length = array.length;
+    while (++index < length) {
+      iteratee(array[index], index);
+    }
+    return list;
+  } else if (type === setTag) {
+    for (let index of array) {
+      iteratee(index, index);
+    }
+    return array;
+  } else if (type === mapTag) {
+    array.forEach((item, index) => iteratee(item, index));
+    return array;
+  } else {
+    return array;
+  }
+}
+```
+
+修改原来的克隆函数
+
+```js
+function cloneDeep(source, map = new WeakMap()) {
+  if (source === null) return null;
+  if (source === undefined) return undefined;
+
+  // 获取对象的数据类型
+  const type = getType(source);
+
+  // 初始化对象
+  let target;
+  if (iterableTags.includes(type)) {
+    target = getConstructor(source);
+  } else {
+    return cloneUnIterableTypes(source, type);
+  }
+
+  // 栈
+  const loopList = [{ parent: target, key: undefined, data: source, type }];
+
+  while (loopList.length) {
+    // 深度优先遍历
+    const node = loopList.pop();
+    const { parent, key, data, type } = node;
+
+    // 初始化赋值目标，key为undefined则拷贝到父元素，否则拷贝到子元素
+    let res = parent;
+    if (typeof key !== "undefined") {
+      res = parent[key] = getConstructor(data);
+    }
+
+    forEach(data, (v, k) => {
+      const currentType = getType(v);
+      if (iterableTags.includes(currentType)) {
+        // 下一次循环
+        loopList.push({
+          parent: res,
+          key: k,
+          data: v,
+          type: currentType,
+        });
+      } else {
+        setIterableTypesValue(res, k, v);
+      }
+    });
+  }
+
+  return target;
+}
+
+function setIterableTypesValue(source, key, value) {
+  const sourceType = getType(source);
+  if (sourceType === setTag) {
+    // 克隆set
+    source.add(value);
+  } else if (sourceType === mapTag) {
+    // 克隆map
+    source.set(key, value);
+  } else if (sourceType === arrayTag) {
+    // 克隆数组
+    source[key] = value;
+  } else if (sourceType === objectTag) {
+    // 克隆对象
+    source[key] = value;
+  }
+
+  return source;
+}
+```
+
+改用循环后, 就再也不会出现爆栈的问题了, 我们可以使用刚才的`createData`再次进行测试:
+
+```js
+console.log(cloneDeep(createData, 10000));
+console.log(cloneDeep(createData, 100000));
+```
+
+## 总结
+
+那么到这边我们的深拷贝工具已经算是完成了, 其实在这篇文章不是为了实现一个完美的深拷贝, 主要还是希望能帮助大家整理一下深拷贝的一个实现过程的思路已经一些会遇到的问题: 通过递归以及浅拷贝实现深拷贝, 同时需要处理各种数据类型, 递归爆栈, 循环引用等问题.
+
+在日常开发中, 我们要尤其注意引用类型数据的引用问题. 尤其在组件化的开发中, 如果我们将一个复杂的数据层层传递到子孙组件中, 并可能对这个数据进行改变, 那这可能会引发一些难以排查或者莫名其妙的问题. 如果是一个对引用数据类型不是很熟悉的同学碰上这个问题, 那这些问题可能会困扰很久.
+
+所以我们在日常开发中应该尽量做好设计的功能, 不应该将复杂的数据透传到子孙组件中去使用, 如果一定需要这样做, 那么应该善用深拷贝.
+
+**完整代码**
 
 > [github-Conrad](https://github.com/ConradZhangcong/utopia-utils/tree/main/src/clone-deep)
 >
@@ -382,6 +500,8 @@ console.log(cloneDeep(createData, 10000));
 > [MDN-Object.prototype.toString()](https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Object/toString)
 >
 > [掘金-如何写出一个惊艳面试官的深拷贝?](https://juejin.cn/post/6844903929705136141#heading-3)
+>
+> [segmentfault-深拷贝的终极探索（99%的人都不知道）](https://segmentfault.com/a/1190000016672263)
 >
 > [github-lodash](https://github.com/lodash/lodash)
 
