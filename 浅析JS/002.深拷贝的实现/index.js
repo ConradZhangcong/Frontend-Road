@@ -100,66 +100,6 @@ function setIterableTypesValue(source, key, value) {
   return source;
 }
 
-function cloneUnIterableTypes(source, type) {
-  const Ctor = source.constructor;
-  switch (type) {
-    case stringTag:
-    case numberTag:
-    case booleanTag:
-    case dateTag:
-    case errorTag:
-      return source;
-    case bigintTag:
-      return BigInt(source);
-    case symbolTag:
-      return cloneSymbol(source);
-    case regexpTag:
-      return clonseReg(source);
-    case functionTag:
-      return cloneFunction(source);
-    case globalTag:
-      return source;
-    default:
-      return null;
-  }
-}
-
-function cloneSymbol(source) {
-  return Object(Symbol.prototype.valueOf.call(source));
-}
-
-function clonseReg(source) {
-  const reFlags = /\w*$/;
-  const result = new source.constructor(source.source, reFlags.exec(source));
-  result.lastIndex = source.lastIndex;
-  return result;
-}
-
-function cloneFunction(func) {
-  const bodyReg = /(?<={)(.|\n)+(?=})/m;
-  const paramReg = /(?<=\().+(?=\)\s+{)/;
-  const funcString = func.toString();
-  if (func.prototype) {
-    // 普通函数
-    const param = paramReg.exec(funcString);
-    const body = bodyReg.exec(funcString);
-    if (body) {
-      // 匹配到函数体
-      if (param) {
-        // 匹配到参数
-        const paramArr = param[0].split(",");
-        return new Function(...paramArr, body[0]);
-      } else {
-        return new Function(body[0]);
-      }
-    } else {
-      return null;
-    }
-  } else {
-    // 箭头函数
-    return eval(funcString);
-  }
-}
 
 function forEach(array, iteratee) {
   const type = getType(array);

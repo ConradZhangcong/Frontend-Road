@@ -47,7 +47,7 @@ cloneDeep(obj);
     a: '1',
     b: 1,
     c: true,
-    d: {},
+    d: null,
     e: undefined,
     f: { g: { h: '2' }, i: '3' }
   }
