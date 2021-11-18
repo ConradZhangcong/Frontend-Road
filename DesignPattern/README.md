@@ -1,37 +1,50 @@
-# designPattern
+# 设计模式(Design Pattern)
 
-设计模式
+1994 年, GOF(Gang of Four)出版了一本书名为**Design Patterns - Elements of Reusable Object-Oriented Software(中文译名:设计模式-可复用的面向对象软件元素)**的书, 提出了软件开发中设计模式的概念.
 
-## 观察者模式 - Observer
+## 设计模式的类型
 
-## 发布订阅模式 - PublishSubscribe
+创建型模式
 
-参考: [掘金-发布订阅模式，在工作中它的能量超乎你的想象](https://juejin.im/post/5b125ad3e51d450688133f22)
+- 工厂模式(Factory Pattern)
+- 抽象工厂模式(Abstract Factory Pattern)
+- 单例模式(Singleton Pattern)
+- 建造者模式(Builder Pattern)
+- 原型模式(Prototype Pattern)
 
-> 发布订阅模式其实是一种对象间一对多的依赖关系,当一个对象的状态发生改变时,所有依赖于它的对象都将得到状态改变的通知.
+结构性模式
 
-- 广泛应用于异步编程中(代替了传递回调函数)
-- 对象间松散耦合的编写代码
+- 适配器模式(Adapter Pattern)
+- 桥接模式(Bridge Pattern)
+- 过滤器模式(Filter, Criteria Pattern)
+- 组合模式(Composite Pattern)
+- 装饰者模式(Decorator Pattern)
+- 外观模式(Facade Pattern)
+- 享元模式(Flyweight Pattern)
+- 代理模式(Proxy Pattern)
 
-## 观察者模式和发布订阅模式
+行为型模式
 
-1. 观察者模式中观察者知道 Subject,Subject 对观察者进行记录.发布订阅模式中,发布者和订阅者不知道对方的存在,通过消息代理进行通信.
-2. 发布订阅模式中,组件松散耦合,和观察订阅者模式相反.
-3. 观察者模式大多数时候是同步的,发布订阅模式大多数时候是异步的(使用消息队列).
+- 责任链模式(Chain of Responsibility Pattern)
+- 命令模式(Command Pattern)
+- 解释器模式(Interpreter Pattern)
+- 迭代器模式(Iterator Pattern)
+- 中介者模式(Mediator Pattern)
+- 备忘录模式(Memento Pattern)
+- 观察者模式(Observer Pattern)
+- 状态模式(State Pattern)
+- 空对象模式(Null Object Pattern)
+- 策略模式(Strategy Pattern)
+- 模板模式(Template Pattern)
+- 访问者模式(Visitor Pattern)
 
-观察者模式:
+J2EE 模式
 
-```mermaid
-graph BT;
-  Observer-.Subsctibe.->Subject
-  Subject-.Fire Event.->Observer
-```
-
-发布订阅模式:
-
-```mermaid
-graph TB;
-  Publisher-.Publish Event.->EventChannel
-  EventChannel-.Fire Event.->Observer
-  Observer-.Subsctibe.->EventChannel
-```
+- MVC 模式(MVC Pattern)
+- 业务代表模式(Business Delegate Pattern)
+- 组合实体模式(Composite Entity Pattern)
+- 数据访问对象模式(Data Access Object Pattern)
+- 前端控制器模式(Front Controller Pattern)
+- 拦截过滤器模式(Intercepting Filter Pattern)
+- 服务定位器模式(Service Locator Pattern)
+- 传输对象模式(Transfer Object Pattern)
