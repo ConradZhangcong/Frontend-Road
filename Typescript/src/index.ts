@@ -1,1 +1,6 @@
-type ToArray<Type> = Type extends any ? Type[] : never;
+interface Person {
+  name: string;
+  age: number;
+}
+
+let personProps: keyof Person; // 'name' | 'age'

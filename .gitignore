@@ -6,5 +6,5 @@
 /temp
 
 # others
-
+*.zip
 temp.js
