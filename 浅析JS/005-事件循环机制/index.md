@@ -64,9 +64,13 @@ console.log("代码执行结束");
 微任务大概包括:
 
 - `process.nextTick`
-- `Promise.then`
-- `async/await`
+- `Promise.[then|catch|finally]`
 - `MutaionObserver`
+- `queueMicrotask`
+
+### 如何理解 script 是宏任务
+
+如果同时存在两个`script`代码块, 会首先执行第一个`script`代码块中的同步代码. 如果这个过程中创建了微任务, 那么在第一个`script`代码块中的同步代码执行完后, 会先清空为任务队列, 再去开启第二个`script`代码块的执行.
 
 ## 浏览器中的事件循环
 
@@ -153,11 +157,11 @@ async1();
 
 上面这段代码的执行结果为: `Promise -> async2 -> promise1 -> async1 -> promise2`, 这边就不在具体分析这段代码的执行过程了, 可以根据上面的例子推敲一下.
 
-需要注意的是`async/await`在某些版本的浏览器中执行顺序可能与上面的顺序不太一致, 可能会为: `async2 -> Promise -> async1 -> promise1 -> promise2`. 出现这个问题是因为`Chrome`浏览器在实现规范时有些许差距, 具体可以看一下这篇讨论: [async/await 在chrome 环境和 node 环境的 执行结果不一致，求解？](https://www.zhihu.com/question/268007969).
+需要注意的是`async/await`在某些版本的浏览器中执行顺序可能与上面的顺序不太一致, 可能会为: `async2 -> Promise -> async1 -> promise1 -> promise2`. 出现这个问题是因为`Chrome`浏览器在实现规范时有些许差距, 具体可以看一下这篇讨论: [async/await 在 chrome 环境和 node 环境的 执行结果不一致，求解？](https://www.zhihu.com/question/268007969).
 
-## node中的事件循环
+## node 中的事件循环
 
-node中的宏任务与微任务与浏览器比多了`IO操作`, `process.nextTick`等, 他
+node 中的宏任务与微任务与浏览器比多了`IO操作`, `process.nextTick`等, 他
 
 ## 题外话
 
@@ -169,6 +173,10 @@ node中的宏任务与微任务与浏览器比多了`IO操作`, `process.nextTic
 
 ## 参考
 
+> [In depth: Microtasks and the JavaScript runtime environment](https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide/In_depth)
+>
+> [在 JavaScript 中通过 queueMicrotask() 使用微任务](https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_DOM_API/Microtask_guide)
+>
 > [JS 是单线程，你了解其运行机制吗 ？](https://www.jianshu.com/p/f478f15c1671)
 >
 > [面试题：说说事件循环机制(满分答案来了)][https://mp.weixin.qq.com/s/qgfe5km1xiekqqadmlmj-q]
