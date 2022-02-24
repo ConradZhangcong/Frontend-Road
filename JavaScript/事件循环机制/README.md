@@ -1,6 +1,8 @@
 # 事件循环机制
 
-[微信公众号 - 面试题：说说事件循环机制(满分答案来了)](https://mp.weixin.qq.com/s?__biz=MzUxMjc3ODc0OQ==&mid=2247484055&idx=1&sn=aefcaeed729067f8772e0c32bbb23212&chksm=f95e0a05ce298313e1b1d68e8c7fa77a23a8e3061b8de05e7dcf9ddc12a40dd7f54fa2df5178&mpshare=1&scene=1&srcid=&sharer_sharetime=1585204022847&sharer_shareid=d917bfceeca8b8479cb5bdb1daf80ef7&key=035ebbb92b278ff13729b524c745068b78ba27d0aed4948bbb7add4113b3e5198e1e35cae20097f5013017b812211e3c15cbf97afa96d9036d6ac6c48a890f44eb9971d6a40f34424c048d28bb8b1df8&ascene=1&uin=MjQ5MTI3MzQwMA%3D%3D&devicetype=Windows+10&version=62080079&lang=zh_CN&exportkey=Ad0hNffXcyfep8c1mM04BW0%3D&pass_ticket=r28hfyp4hr1x6Pgt7SP6wcgq%2FtPSa9u%2BRxgoGhvWVITZCS2zqqpzwcZsBG%2F%2FuBC1)
+[微信公众号 - 面试题：说说事件循环机制(满分答案来了)](https://mp.weixin.qq.com/s/QgfE5Km1xiEkQqADMLmj-Q)
+
+[nodejs 官网 - Node.js 事件循环，定时器和 process.nextTick()](https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/#node-js-process-nexttick)
 
 ## 大纲
 
@@ -46,8 +48,8 @@ micro-task 包括:
 
 宏任务的执行顺序是这样的:
 
-- timers定时器：本阶段执行已经安排的 setTimeout() 和 setInterval() 的回调函数。
-- pending callbacks待定回调：执行延迟到下一个循环迭代的 I/O 回调。
+- timers 定时器：本阶段执行已经安排的 setTimeout() 和 setInterval() 的回调函数。
+- pending callbacks 待定回调：执行延迟到下一个循环迭代的 I/O 回调。
 - idle, prepare：仅系统内部使用。
 - poll 轮询：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，它们由计时器和 setImmediate() 排定的之外），其余情况 node 将在此处阻塞。
 - check 检测：setImmediate() 回调函数在这里执行。
