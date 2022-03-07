@@ -129,4 +129,6 @@ if (xxxx) {
 
 ## 参考
 
+[React + TypeScript实践](https://juejin.cn/post/6952696734078369828)
+
 [还算完整的 React+TS 类型](https://blog.csdn.net/imber___zsk/article/details/121580559)

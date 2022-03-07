@@ -2,7 +2,7 @@
 
 `window.navigator`返回一个`Navigator`对象的引用, 用于请求运行当前代码的应用程序的相关信息.
 
-`Navigator`对象包含了一些关于浏览器的信息, 具体可以查阅(MDN)[https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator], 这边不做列举.
+`Navigator`对象包含了一些关于浏览器的信息, 具体可以查阅[MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator), 这边不做列举.
 
 ## userAgent 属性介绍
 
