@@ -7,5 +7,5 @@
     "noEmitOnError": true,
     "noImplicitThis": true
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./**/*.ts"]
 }
