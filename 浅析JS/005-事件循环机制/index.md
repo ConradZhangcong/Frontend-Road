@@ -1,7 +1,5 @@
 # 事件循环机制
 
-本文编写时的环境: `node v16.5.0` `Chrome v99`
-
 ## JS 代码的执行
 
 `JavaScript`是用于实现网页交互的逻辑, 涉及到`DOM`操作. 如果有多个线程同时操作, 那就需要做同步互斥的处理, 为了简化就设计了单线程, 所以我们常说"JS 是单线程的".
@@ -125,7 +123,32 @@ setTimeout(() => {
 }, 0);
 ```
 
-这段代码运行的结果是: 1 -> 0 -> 2 -> 3 -> 4, 在 node 和浏览器中运行结果都一样.
+这段代码运行的结果经过测试在浏览器(`Chrome v99`)和 node(`16.14.1`)环境略有差异.
+
+在浏览器中, 这段代码运行结果固定为: `1 -> 0 -> 2 -> 3 -> 4`
+
+但是在 node 中, 这段代码运行结果是: `1 -> 0 -> (2,3,4)?`, 1 -> 0 没问题, 后面 2,3,4 的输出顺序不能确定
+
+虽然在[MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/setTimeout)中指出, 最小延时`>=4ms`, 但是这段代码在浏览器和 node 中的运行结果表现地似乎并不如`MDN`所描述的一样.
+
+为什么`1 -> 0`是固定的呢? 我们可以在[node 的 timer 源码](https://github.com/nodejs/node/blob/master/lib/internal/timers.js)中看到:
+
+```js
+function Timeout(callback, after, args, isRepeat, isRefed) {
+  after *= 1; // Coalesce to number or NaN
+  if (!(after >= 1 && after <= TIMEOUT_MAX)) {
+    if (after > TIMEOUT_MAX) {
+      // ...
+    }
+    after = 1; // Schedule on next tick, follows browser behavior
+  }
+  // ...
+}
+```
+
+如果延迟设置为`0`, 最终会被处理成`1`, 所以`1`和`0`实际上是相同的, 我猜测浏览器中也是相似的处理.
+
+并且浏览器似乎对延时的最小延时进行了修改, 所以每次都能按照`1 -> 0 -> 2 -> 3 -> 4`的顺序执行.
 
 ### async/await 执行顺序
 
@@ -298,11 +321,11 @@ Node.js 的 Event Loop 流程是执行当前阶段的一定数量宏任务(其�
 
 ## 题外话
 
-总的来说事件循环机制还是比较复杂的, 而且浏览器在实现的时候并没有完全按照规范来, 所以在日常开发中需要注意应该避免各种类型的异步操作嵌套的写法, 这及为容易写出 bug.
+总的来说事件循环机制还是比较复杂的, 所以在日常开发中需要注意应该避免各种类型的异步操作嵌套的写法, 这及为容易写出 bug.
 
 代码主要是给人看的, 其次是给机器看的, 所以编写良好的代码应该有一个规范, 每个团队都需要有一定的代码风格.
 
-虽然这么说, 但是总有特殊情况, 了解事件循环机制应该是每个前端开发的基本技能. 如果真的碰上一些复杂的特殊场景, 那么希望本篇文章对你有一定的帮助.
+虽然这么说, 但是总有特殊情况会有这些异步操作组合的时候, 并且了解事件循环机制应该是每个前端开发的基本技能. 如果真的碰上一些复杂的特殊场景, 那么希望本篇文章对你有一定的帮助.
 
 ## 参考
 
@@ -312,8 +335,12 @@ Node.js 的 Event Loop 流程是执行当前阶段的一定数量宏任务(其�
 >
 > [JS 是单线程，你了解其运行机制吗 ？](https://www.jianshu.com/p/f478f15c1671)
 >
-> [面试题：说说事件循环机制(满分答案来了)](https://mp.weixin.qq.com/s/QgfE5Km1xiEkQqADMLmj-Q)
+> [面试题：说说事件循环机制(满分答案来了)](https://juejin.cn/post/6844904079353708557)
 >
 > [Node.js 事件循环，定时器和 process.nextTick()](https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/)
 >
 > [浏览器和 Node.js 的 EventLoop 为什么这么设计？](https://juejin.cn/post/7049385716765163534)
+
+```
+本人才疏学浅 欢迎交流与指正
+```
