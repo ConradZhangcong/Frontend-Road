@@ -2,7 +2,7 @@
 
 在使用 git 提交代码的时候, 需要编写 commit message, 否则不允许提交.
 
-```shell
+```bash
 git commit -m "commit message"
 ```
 

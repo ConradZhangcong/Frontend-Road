@@ -96,7 +96,49 @@ git status
 
 ### 恢复暂存的代码
 
+## version
+
+npm 的版本号需要遵循语义化版本, 一个版本号包含三个部分: `MAJOR.MINOR.PATCH`
+
+- `MAJOR`表示主版本号, 当你做了不兼容的 API 修改
+- `MINOR`表示次版本号, 当你做了向下兼容的功能性新增
+- `PATCH`表示修订号, 当你做了向下兼容的问题修正
+
+可以使用`npm version`命令来自动修改版本号:
+
+```js
+// current version = v1.0.0
+npm version patch
+// v1.0.1
+npm version prepatch
+// v1.0.2-0
+npm version minor
+// v1.1.0
+npm version major
+// v2.0.0
+npm version prerelease --preid=alpha
+// v2.0.0
+```
+
+一般来说还有先行版本，测试版本等，他们这样命名
+
+3.1.0-beta.0
+3.1.0-alpha.0
+
 ## 日常场景
+
+> HEAD 表示最新提交的版本</br>
+> HEAD^ 表示 HEAD 往前 `1` 个提交, 几个`^`表示往前几个版本</br>
+> HEAD~n 表示 HEAD 往前 `n` 个提交</br>
+
+### 回滚
+
+回滚 commit:
+
+```shell
+git reset --help
+git reset [--soft | --mixed [-N] | --hard | --merge | --keep] HEAD^
+```
 
 ### mac 系统删除项目中所有的.DS_Store
 
