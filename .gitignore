@@ -1,10 +1,19 @@
 # ide
 .vscode
+.idea
+
+# os
 .DS_Store
+
+# dependency
+/node_modules
+
+# dist
+/dist
+/lib
 
 # temp files
 /temp
 
 # others
 *.zip
-temp.js
