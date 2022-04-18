@@ -24,6 +24,8 @@ ES2015 是正式名称, 特指 2015 年发布的正式版本的语言标准. 所
 
 可以在TC39官方网站查看当前所有的提案[Github - TC39](https://github.com/tc39/ecma262)
 
+所有已通过的提案[Finished Proposals](https://github.com/tc39/proposals/blob/main/finished-proposals.md)
+
 参考:
 
 [阮一峰 - ECMAScript6 入门](http://ES6.ruanyifeng.com/)
