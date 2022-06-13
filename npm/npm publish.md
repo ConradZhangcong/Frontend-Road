@@ -14,7 +14,7 @@
 
 如果配置了淘宝镜像，需要把配置修改为 npmjs 的: `npm config set registry=http://registry.npmjs.org`
 
-删除依赖: `npm unpublish [依赖包名称] --force`
+删除依赖: `npm unpublish [依赖包名称][版本号] --force`
 
 ## 限制发布时的文件
 
