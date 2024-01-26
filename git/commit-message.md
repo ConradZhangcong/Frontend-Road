@@ -6,7 +6,7 @@
 git commit -m "commit message"
 ```
 
-具体的规范其实每个团队自行制定, 但是大体上需要遵循一个规则
+具体的规范其实每个团队可以自行制定, 可以参考[`commitlint`](https://commitlint.js.org/#/)官方文档
 
 ## 规范
 
@@ -30,15 +30,19 @@ Header 部分只有一行, 包括: `type`(必需), `scope`(可选), `subject`(�
 
 #### type
 
-`type`用于说明 commit 的类别, 只允许使用下面 7 个标识
+`type`用于说明 commit 的类别, 只允许使用下面几种标识
 
+- build
+- chore: 构建过程或辅助工具的变动
+- ci
+- docs: 文档
 - feat: 新功能(feature)
 - fix: 修复 bug
-- docs: 文档
-- style: 格式(不影响代码运行的变动)
+- perf
 - refactor: 重构(既不是新功能, 也不是修改 bug 的改动)
+- revert
+- style: 格式(不影响代码运行的变动)
 - test: 增加测试
-- chore: 构建过程或辅助工具的变动
 
 如果`type`是`feat`和`fix`, 则 commit 将出现在 change log 中. 其他的自行决定, 建议不要.
 
